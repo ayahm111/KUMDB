@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial_scale=1.0">
+ <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+ <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+ <title>Checkout</title>
+</head>
+<body>
+ <h2>User Information</h2>
+ <p><strong>Name:</strong> {{ name }}</p>
+ <p><strong>Email:</strong> {{ email }}</p>
+ <p><strong>Phone:</strong> {{ phone }}</p>
+ <p><strong>Address:</strong> {{ address }}</p>
+ <h1 class="cart-title">Items Purchased</h1>
+ <table class="cart-items">
+ <!-- Table header content -->
+ <tbody>
+ {% for item in items_purchased %}
+ <tr>
+ <td>{{ item.title }}</td>
+ <td><img class="cart-item-img"
+src="{{ url_for('static', filename=item.image) }}"
+alt="{{ item.title }}"></td>
+ <td>{{ item.price }}</td>
+ <td>{{ item.quantity }}</td>
+ </tr>
+ {% endfor %}
+ </tbody>
+ </table>
+ <p class="cart-total">Total price: {{ total_price }}</p>
+</body>
+</html>

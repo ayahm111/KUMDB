@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+ <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+ <title>Movie Design</title>
+</head>
+<body>
+ <div class="navbar">
+ <div class="navbar-container">
+ <div class="logo-container">
+ <h1 class="logo">kuMDB</h1>
+ </div>
+ <div class="menu-container">
+ <ul class="menu-list">
+ <li class="menu-list-item active">
+ <a href="/" class="home-link">Home</a>
+ </li>
+ <li class="menu-list-item">
+ <a href="/cart" class="cart-link">
+ <i class="left-menu-icon fas fa-shopping-cart"></i>
+ </a>
+ </li>
+ </ul>
+ </div>
+ <div class="search">
+ <input type="text" placeholder="Find your favorite movies"
+class="search-input">
+ <button type="submit" onclick="searchMovies()">
+ <i class="fas fa-search"></i>
+ </button>
+ </div>
+ </div>
+ </div>
+ <div class="container">
+ <div class="movie-list-container">
+ <h1 class="movie-list-title">MOVIES ON SALE</h1>
+ <div class="movie-list-wrapper">
+ <div class="movie-list">
+ {% for movie in movies %}
+ <div class="movie-list-item" data-movie-id="{{ movie.id }}">
+ <img class="movie-list-item-img" src="{{ url_for('static', filename=movie.image) }}" alt="">
+ <div class="movie-details">
+ <h2 class="movie-list-item-title">{{ movie.title }}
+</h2>
+ <p class="movie-list-item-desc">
+ Release Year: <span id="release_year">{{ movie.release_year }}</span><br>
+ Genre: <span id="genre">{{ movie.genre }}</span><br>
+ Running Time: <span
+id="running_time">{{ movie.running_time }}</span><br>
+ Directed by: <span id="director">{{ movie.director 
+}}</span><br>
+ Lead Actors: <span
+id="lead_actors">{{ movie.lead_actors }}</span><br>
+ Minor Character: <span
+id="minor_character">{{ movie.minor_character }}</span><br>
+ Producers: <span id="producers">{{ movie.producers 
+}}</span> <br>
+ Studio: <span id="studio">{{ movie.studio }}</span> <br>
+ price: <span class="movie-list-item-price">{{ movie.price }}</span> <br>
+ Availability: <span
+id="Availability">{{movie.availability}}</span>
+ </p>
+ <form action="{{ url_for('add_to_cart') }}"
+method="post">
+ <input type="hidden" name="movie_id"
+value="{{ movie.id }}">
+ <input type="hidden" name="movie_title"
+value="{{ movie.title }}">
+ <input type="hidden" name="movie_price"
+value="{{ movie.price }}">
+ <button class="featured-button" name="movie_id"
+value="{{ movie.id }}">Buy</button>
+ </form>
+ </div>
+ </div>
+ {% endfor %}
+ </div>
+ </div>
+ </div>
+ <div class="container">
+ <div class="cart-items">
+ <div class="cart-item">
+ <div class="cart-item-details"></div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <script src="{{ url_for('static', filename='app.js') }}">
+ </script>
+</body>
+</html>
